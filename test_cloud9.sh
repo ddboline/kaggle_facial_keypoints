@@ -1,5 +1,8 @@
 #!/bin/bash
 
+sudo modprobe nvidia-340
+sudo modprobe nvidia-340-uvm
+
 # sudo pip install --upgrade theano
 # sudo pip install git+https://github.com/benanne/Lasagne
 # sudo pip install nolearn

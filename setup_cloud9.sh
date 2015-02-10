@@ -2,7 +2,10 @@
 
 sudo apt-get update
 sudo apt-get install -y python-pip
-sudo apt-get install -y gcc g++ gfortran build-essential git wget linux-image-generic libopenblas-dev python-dev python-pip python-nose python-numpy python-scipy
+sudo apt-get install -y gcc g++ gfortran build-essential 
+sudo apt-get install -y git wget linux-image-generic libopenblas-dev 
+sudo apt-get install -y python-dev python-pip python-nose python-numpy python-scipy 
+sudo apt-get install -y cython linux-image-extra-virtual
 
 sudo pip install --upgrade theano
 
@@ -11,13 +14,25 @@ sudo dpkg -i cuda-repo-ubuntu1404_6.5-14_amd64.deb
 sudo apt-get update
 sudo apt-get install -y cuda
 
+sudo pip install git+https://github.com/benanne/Lasagne
+sudo pip install nolearn
+sudo pip install git+https://github.com/lisa-lab/pylearn2.git
 
-# sudo pip install numpy
-# sudo pip install theano
-# sudo pip install git+https://github.com/benanne/Lasagne
-# sudo pip install nolearn
-# sudo pip install git+https://github.com/lisa-lab/pylearn2.git
-# 
-# 
-# sudo pip install -r requirements.txt
-# sudo pip install -r requirements-2.txt
+cat > blacklist-nouveau.conf << EOL
+blacklist nouveau
+blacklist lbm-nouveau
+options nouveau modeset=0
+alias nouveau off
+alias lbm-nouveau off
+EOL
+
+sudo mv blacklist-nouveau.conf /etc/modprobe.d/
+
+echo options nouveau modeset=0 | sudo tee -a /etc/modprobe.d/nouveau-kms.conf
+
+sudo update-initramfs -u
+reboot
+
+# cd /usr/local/cuda/samples/1_Utilities/deviceQuery
+# sudo make
+# sudo ./deviceQuery

@@ -3,7 +3,7 @@
 import numpy as np
 
 from load_fn import load2d
-from lasagne import layer
+from lasagne import layers
 from lasagne.updates import nesterov_momentum
 from nolearn.lasagne import NeuralNet
 

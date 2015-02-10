@@ -1,9 +1,15 @@
 #!/bin/bash
 
-sudo pip install --upgrade theano
-sudo pip install git+https://github.com/benanne/Lasagne
-sudo pip install nolearn
-sudo pip install git+https://github.com/lisa-lab/pylearn2.git
+# sudo pip install --upgrade theano
+# sudo pip install git+https://github.com/benanne/Lasagne
+# sudo pip install nolearn
+# sudo pip install git+https://github.com/lisa-lab/pylearn2.git
+
+virtualenv venv
+source venv/bin/activate
+
+pip install -r requirements.txt
+pip install -r requirements-2.txt
 
 for F in training.zip test.zip IdLookupTable.csv SampleSubmission.csv;
 do

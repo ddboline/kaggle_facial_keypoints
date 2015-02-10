@@ -6,7 +6,7 @@ sudo apt-get install -y gcc g++ gfortran build-essential
 sudo apt-get install -y git wget linux-image-generic libopenblas-dev
 sudo apt-get install -y python-dev python-pip python-nose python-numpy python-scipy
 sudo apt-get install -y cython linux-image-extra-virtual
-sudo apt-get install -y python-matplotlib python-pandas
+sudo apt-get install -y python-matplotlib python-pandas python-virtualenv
 
 wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-repo-ubuntu1404_6.5-14_amd64.deb
 sudo dpkg -i cuda-repo-ubuntu1404_6.5-14_amd64.deb

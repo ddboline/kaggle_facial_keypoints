@@ -18,6 +18,8 @@ sudo pip install git+https://github.com/benanne/Lasagne
 sudo pip install nolearn
 sudo pip install git+https://github.com/lisa-lab/pylearn2.git
 
+echo -e "\n[global]\nfloatX=float32\ndevice=gpu\n[mode]=FAST_RUN\n\n[nvcc]\nfastmath=True\n\n[cuda]\nroot=/usr/local/cuda" >> ~/.theanorc
+
 cat > blacklist-nouveau.conf << EOL
 blacklist nouveau
 blacklist lbm-nouveau
@@ -31,7 +33,7 @@ sudo mv blacklist-nouveau.conf /etc/modprobe.d/
 echo options nouveau modeset=0 | sudo tee -a /etc/modprobe.d/nouveau-kms.conf
 
 sudo update-initramfs -u
-reboot
+sudo reboot
 
 # cd /usr/local/cuda/samples/1_Utilities/deviceQuery
 # sudo make

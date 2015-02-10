@@ -10,6 +10,11 @@ do
     scp ubuntu@ddbolineinthecloud.mooo.com:~/setup_files/build/kaggle_facial_keypoints/$F .
 done
 
+for F in training.zip test.zip;
+do
+    unzip -x $F;
+done
+
 ./test.py
 ./single_hidden_layer.py
 ./plot_net1_training_loss.py

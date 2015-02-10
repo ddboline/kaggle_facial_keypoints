@@ -3,13 +3,15 @@
 import numpy as np
 
 from load_fn import load2d
-from lasagne import layers
+from lasagne import layer
 from lasagne.updates import nesterov_momentum
 from nolearn.lasagne import NeuralNet
 
+import lasagne.layers.cuda_convnet as cuda_convnet
+
 # use the cuda-convnet implementations of conv and max-pool layer
-Conv2DLayer = layers.cuda_convnet.Conv2DCCLayer
-MaxPool2DLayer = layers.cuda_convnet.MaxPool2DCCLayer
+Conv2DLayer = cuda_convnet.Conv2DCCLayer
+MaxPool2DLayer = cuda_convnet.MaxPool2DCCLayer
 
 net2 = NeuralNet(
     layers=[

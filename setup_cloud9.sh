@@ -14,6 +14,7 @@ sudo apt-get update
 sudo apt-get install -y cuda unzip
 
 echo -e "\n[global]\nfloatX=float32\ndevice=gpu\n[mode]=FAST_RUN\n\n[nvcc]\nfastmath=True\n\n[cuda]\nroot=/usr/local/cuda" >> ~/.theanorc
+echo -e "\nexport PATH=\"/usr/local/cuda-6.5/bin:\$PATH\"\nexport LD_LIBRARY_PATH=\"/usr/local/cuda-6.5/lib64:\$LD_LIBRARY_PATH\"\n" >> ~/.bashrc
 
 cat > blacklist-nouveau.conf << EOL
 blacklist nouveau

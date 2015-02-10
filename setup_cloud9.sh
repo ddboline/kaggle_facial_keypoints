@@ -6,6 +6,7 @@ sudo apt-get install -y gcc g++ gfortran build-essential
 sudo apt-get install -y git wget linux-image-generic libopenblas-dev 
 sudo apt-get install -y python-dev python-pip python-nose python-numpy python-scipy 
 sudo apt-get install -y cython linux-image-extra-virtual
+sudo apt-get install -y python-matplotlib python-pandas
 
 sudo pip install --upgrade theano
 

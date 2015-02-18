@@ -9,13 +9,13 @@ sudo modprobe nvidia-340-uvm
 virtualenv venv
 source venv/bin/activate
 
-pip install -r requirements.txt
-pip install -r requirements-2.txt
+# pip install -r requirements.txt
+# pip install -r requirements-2.txt
 
-# pip install --upgrade theano
-# pip install git+https://github.com/benanne/Lasagne.git
-# pip install nolearn
-# pip install git+https://github.com/lisa-lab/pylearn2.git
+pip install --upgrade theano 2>&1 > theano_build.log
+pip install git+https://github.com/benanne/Lasagne.git 2>&1 > lasagne_build.log
+pip install nolearn 2>&1 > nolearn_build.log
+pip install git+https://github.com/lisa-lab/pylearn2.git 2>&1 > pylearn2_build.log
 
 for F in training.zip test.zip IdLookupTable.csv SampleSubmission.csv;
 do

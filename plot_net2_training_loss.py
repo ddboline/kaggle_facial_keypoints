@@ -35,4 +35,3 @@ pl.ylabel("loss")
 pl.ylim(1e-3, 1e-2)
 pl.yscale("log")
 pl.savefig('training_loss_net2.png')
-

@@ -11,11 +11,10 @@ from lasagne.updates import nesterov_momentum
 from nolearn.lasagne import NeuralNet
 
 net1 = NeuralNet(
-    layers=[  # three layers: one hidden layer
+    layers=[ # three layers: one hidden layer
         ('input', layers.InputLayer),
         ('hidden', layers.DenseLayer),
-        ('output', layers.DenseLayer),
-        ],
+        ('output', layers.DenseLayer),],
     # layer parameters:
     input_shape=(None, 9216),  # 96x96 input pixels per batch
     hidden_num_units=100,  # number of units in hidden layer
@@ -29,8 +28,7 @@ net1 = NeuralNet(
 
     regression=True,  # flag to indicate we're dealing with regression problem
     max_epochs=400,  # we want to train this many epochs
-    verbose=1,
-    )
+    verbose=1,)
 
 X, y = load()
 net1.fit(X, y)
@@ -50,4 +48,3 @@ pl.ylabel("loss")
 pl.ylim(1e-3, 1e-2)
 pl.yscale("log")
 pl.savefig('training_loss.png')
-

@@ -17,7 +17,7 @@ class FlipBatchIterator(BatchIterator):
         (4, 8), (5, 9), (6, 10), (7, 11),
         (12, 16), (13, 17), (14, 18), (15, 19),
         (22, 24), (23, 25),
-        ]
+       ]
 
     def transform(self, Xb, yb):
         Xb, yb = super(FlipBatchIterator, self).transform(Xb, yb)
@@ -25,11 +25,11 @@ class FlipBatchIterator(BatchIterator):
         # Flip half of the images in this batch at random:
         bs = Xb.shape[0]
         indices = np.random.choice(bs, bs / 2, replace=False)
-        Xb[indices] = Xb[indices, :, :, ::-1]
+        Xb[indices] = Xb[indices,:,:,::-1]
 
         if yb is not None:
             # Horizontal flip of all x coordinates:
-            yb[indices, ::2] = yb[indices, ::2] * -1
+            yb[indices,::2] = yb[indices,::2] * -1
 
             # Swap places, e.g. left_eye_center_x -> right_eye_center_x
             for a, b in self.flip_indices:
@@ -50,7 +50,7 @@ net3 = NeuralNet(
         ('hidden4', layers.DenseLayer),
         ('hidden5', layers.DenseLayer),
         ('output', layers.DenseLayer),
-        ],
+       ],
     input_shape=(None, 1, 96, 96),
     conv1_num_filters=32, conv1_filter_size=(3, 3), pool1_ds=(2, 2),
     conv2_num_filters=64, conv2_filter_size=(2, 2), pool2_ds=(2, 2),
@@ -65,7 +65,7 @@ net3 = NeuralNet(
     batch_iterator_train=FlipBatchIterator(batch_size=128),
     max_epochs=3000,
     verbose=1,
-    )
+   )
 
 X, y = load2d()  # load 2-d data
 net3.fit(X, y)

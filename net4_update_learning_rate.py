@@ -19,7 +19,7 @@ class AdjustVariable(object):
         self.name = name
         self.start, self.stop = start, stop
         self.ls = None
-    
+
     def __call__(self, nn, train_history):
         if self.ls is None:
             self.ls = np.linspace(self.start, self.stop, nn.max_epochs)
@@ -41,11 +41,11 @@ class FlipBatchIterator(BatchIterator):
         # Flip half of the images in this batch at random:
         bs = Xb.shape[0]
         indices = np.random.choice(bs, bs / 2, replace=False)
-        Xb[indices] = Xb[indices, :, :, ::-1]
+        Xb[indices] = Xb[indices,:,:,::-1]
 
         if yb is not None:
             # Horizontal flip of all x coordinates:
-            yb[indices, ::2] = yb[indices, ::2] * -1
+            yb[indices,::2] = yb[indices,::2] * -1
 
             # Swap places, e.g. left_eye_center_x -> right_eye_center_x
             for a, b in self.flip_indices:

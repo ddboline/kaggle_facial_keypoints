@@ -24,8 +24,7 @@ net2 = NeuralNet(
         ('pool3', MaxPool2DLayer),
         ('hidden4', layers.DenseLayer),
         ('hidden5', layers.DenseLayer),
-        ('output', layers.DenseLayer),
-        ],
+        ('output', layers.DenseLayer),],
     input_shape=(None, 1, 96, 96),
     conv1_num_filters=32, conv1_filter_size=(3, 3), pool1_ds=(2, 2),
     conv2_num_filters=64, conv2_filter_size=(2, 2), pool2_ds=(2, 2),
@@ -38,8 +37,7 @@ net2 = NeuralNet(
 
     regression=True,
     max_epochs=1000,
-    verbose=1,
-    )
+    verbose=1,)
 
 X, y = load2d()  # load 2-d data
 net2.fit(X, y)

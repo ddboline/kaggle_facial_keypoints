@@ -28,7 +28,7 @@ EOL
 
 cat >> ~/.bashrc << EOL
 export PATH="/usr/local/cuda-6.5/bin:$PATH"
-export LD_LIBRARY_PATH="/usr/local/cuda-6.5/lib64:$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH="/usr/local/cuda-6.5/lib64"
 EOL
 
 cat > blacklist-nouveau.conf << EOL

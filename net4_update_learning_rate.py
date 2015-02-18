@@ -11,13 +11,29 @@ from nolearn.lasagne import NeuralNet
 Conv2DLayer = layers.cuda_convnet.Conv2DCCLayer
 MaxPool2DLayer = layers.cuda_convnet.MaxPool2DCCLayer
 
+def float32(k):
+    return np.cast['float32'](k)
+
+class AdjustVariable(object):
+    def __init__(self, name, start=0.03, stop=0.001):
+        self.name = name
+        self.start, self.stop = start, stop
+        self.ls = None
+    
+    def __call__(self, nn, train_history):
+        if self.ls is None:
+            self.ls = np.linspace(self.start, self.stop, nn.max_epochs)
+        epoch = train_history[-1]['epoch']
+        new_value = float32(self.ls[epoch-1])
+        getattr(nn, self.name).set_value(new_value)
+
+
 class FlipBatchIterator(BatchIterator):
     flip_indices = [
         (0, 2), (1, 3),
         (4, 8), (5, 9), (6, 10), (7, 11),
         (12, 16), (13, 17), (14, 18), (15, 19),
-        (22, 24), (23, 25),
-        ]
+        (22, 24), (23, 25),]
 
     def transform(self, Xb, yb):
         Xb, yb = super(FlipBatchIterator, self).transform(Xb, yb)
@@ -49,8 +65,7 @@ net3 = NeuralNet(
         ('pool3', MaxPool2DLayer),
         ('hidden4', layers.DenseLayer),
         ('hidden5', layers.DenseLayer),
-        ('output', layers.DenseLayer),
-        ],
+        ('output', layers.DenseLayer),],
     input_shape=(None, 1, 96, 96),
     conv1_num_filters=32, conv1_filter_size=(3, 3), pool1_ds=(2, 2),
     conv2_num_filters=64, conv2_filter_size=(2, 2), pool2_ds=(2, 2),
@@ -58,14 +73,15 @@ net3 = NeuralNet(
     hidden4_num_units=500, hidden5_num_units=500,
     output_num_units=30, output_nonlinearity=None,
 
-    update_learning_rate=0.01,
-    update_momentum=0.9,
+    update_learning_rate=theano.shared(float32(0.03)),
+    update_momentum=theano.shared(float32(0.9)),
 
     regression=True,
-    batch_iterator_train=FlipBatchIterator(batch_size=128),
+    #batch_iterator_train=FlipBatchIterator(batch_size=128),
+    on_epoch_finished=[AdjustVariable('update_learning_rate', start=0.03, stop=0.0001),
+                       AdjustVariable('update_momentum', start=0.9, stop=0.999),],
     max_epochs=3000,
-    verbose=1,
-    )
+    verbose=1,)
 
 X, y = load2d()  # load 2-d data
 net3.fit(X, y)

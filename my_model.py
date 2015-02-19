@@ -308,6 +308,8 @@ if __name__ == '__main__':
         with open('net_specialist_%d.pickle' % (index%20), 'rb') as f:
             net, cols = pickle.load(f)
         plot_training(net, label='specialist_%d' % (index%20))
-    else:
-        #fit_specialists(specialist_index=index)
+    elif index == 30:
         predict_specialists()
+    else:
+        fit_specialists(specialist_index=index)
+        

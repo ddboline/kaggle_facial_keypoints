@@ -203,7 +203,7 @@ def predict_specialists():
 
 
 def run_full():
-    print('fitting full %d' % specialist_index)
+    print('fitting full')
     
     net = get_neural_network()
     

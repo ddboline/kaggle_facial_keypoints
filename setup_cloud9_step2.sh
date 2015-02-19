@@ -6,8 +6,8 @@ sudo apt-get install -y --reinstall nvidia-340 nvidia-340-dev nvidia-340-uvm
 sudo modprobe nvidia-340
 sudo modprobe nvidia-340-uvm
 
-virtualenv venv
-source venv/bin/activate
+# virtualenv venv
+# source venv/bin/activate
 
 # pip install -r requirements.txt
 # pip install -r requirements-2.txt

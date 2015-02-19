@@ -1,5 +1,8 @@
 #!/bin/bash
 
+sudo modprobe nvidia-340
+sudo modprobe nvidia-340-uvm
+
 touch output.out
 if [ -z $1 ]; then
     ./test.py 2>&1 >> output.out

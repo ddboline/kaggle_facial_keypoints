@@ -54,7 +54,7 @@ class FlipBatchIterator(BatchIterator):
 
         return Xb, yb
 
-net4 = NeuralNet(
+net5 = NeuralNet(
     layers=[
         ('input', layers.InputLayer),
         ('conv1', Conv2DLayer),
@@ -77,17 +77,17 @@ net4 = NeuralNet(
     update_momentum=theano.shared(float32(0.9)),
 
     regression=True,
-    #batch_iterator_train=FlipBatchIterator(batch_size=128),
+    batch_iterator_train=FlipBatchIterator(batch_size=128),
     on_epoch_finished=[AdjustVariable('update_learning_rate', start=0.03, stop=0.0001),
                        AdjustVariable('update_momentum', start=0.9, stop=0.999),],
     max_epochs=3000,
     verbose=1,)
 
 X, y = load2d()  # load 2-d data
-net4.fit(X, y)
+net5.fit(X, y)
 
 # Training for 1000 epochs will take a while.  We'll pickle the
 # trained model so that we can load it back later:
 import cPickle as pickle
-with open('net4.pickle', 'wb') as f:
-    pickle.dump(net4, f, -1)
+with open('net5.pickle', 'wb') as f:
+    pickle.dump(net5, f, -1)

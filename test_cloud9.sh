@@ -6,6 +6,8 @@ sudo modprobe nvidia-340-uvm
 export PATH="/usr/local/cuda-6.5/bin:$PATH"
 export LD_LIBRARY_PATH="/usr/local/cuda-6.5/lib64"
 
+rm *.pickle *.png
+
 touch output.out
 touch output.err
 ./test.py >> output.out 2>> output.err

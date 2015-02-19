@@ -229,5 +229,15 @@ def plot_training(net, label='net'):
     pl.savefig('training_loss_net.png')
 
 if __name__ == '__main__':
-    net = run_full()
-    plot_training(net)
+    index = -1
+    for arg in os.sys.argv:
+        try:
+            index = int(arg)
+            break
+        except ValueError:
+            continue
+    if index == -1:
+        net = run_full()
+        plot_training(net)
+    else:
+        fit_specialists(specialist_index=index)

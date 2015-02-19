@@ -13,6 +13,8 @@ from nolearn.lasagne import NeuralNet
 from collections import OrderedDict
 from sklearn.base import clone
 
+import lasagne.layers.cuda_convnet as cuda_convnet
+
 # use the cuda-convnet implementations of conv and max-pool layer
 Conv2DLayer = layers.cuda_convnet.Conv2DCCLayer
 MaxPool2DLayer = layers.cuda_convnet.MaxPool2DCCLayer

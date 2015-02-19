@@ -18,17 +18,17 @@ elif [ $1 = "2" ]; then
     ./net3_convolutions_flip.py >> output.out 2>> output.err
     ./plot_net3_training_loss.py >> output.out 2>> output.err
     ./net4_update_learning_rate.py >> output.out 2>> output.err
-    ./plot_net3_training_loss.py >> output.out 2>> output.err
+    ./plot_net4_training_loss.py >> output.out 2>> output.err
 elif [ $1 = "3" ]; then
     ./net5_update_learning_rate_flipped.py >> output.out 2>> output.err
-    ./plot_net3_training_loss.py >> output.out 2>> output.err
+    ./plot_net5_training_loss.py >> output.out 2>> output.err
     ./net6_dropout.py >> output.out 2>> output.err
-    ./plot_net3_training_loss.py >> output.out 2>> output.err
+    ./plot_net6_training_loss.py >> output.out 2>> output.err
 elif [ $1 = "4" ]; then
     ./net7_bigger.py >> output.out 2>> output.err
-    ./plot_net3_training_loss.py >> output.out 2>> output.err
+    ./plot_net7_training_loss.py >> output.out 2>> output.err
     ./net8_moar_epochs.py >> output.out 2>> output.err
-    ./plot_net3_training_loss.py >> output.out 2>> output.err
+    ./plot_net8_training_loss.py >> output.out 2>> output.err
 fi
 
 if [ -z $1 ]; then
@@ -39,4 +39,4 @@ fi
 ssh ddboline@ddbolineathome.mooo.com "mkdir -p ~/setup_files/build/kaggle_facial_keypoints/output_${D}"
 scp output.out output.err *.png *.pickle ddboline@ddbolineathome.mooo.com:~/setup_files/build/kaggle_facial_keypoints/output_${D}
 ssh ddboline@ddbolineathome.mooo.com "~/bin/send_to_gtalk DONE_${D}"
-sudo shutdown now
+# sudo shutdown now

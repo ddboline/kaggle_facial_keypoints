@@ -210,7 +210,7 @@ def predict_specialists():
     
     columns = ()
     for idx in range(len(SPECIALIST_SETTINGS)):
-       with open('net_specialist_%d.pickle' % specialist_index, 'rb') as f:
+       with open('/mnt/data/net_specialist_%d.pickle' % specialist_index, 'rb') as f:
            model, cols = pickle.load(specialist_index)
            y_pred1 = model.predict(X)
            y_pred = np.hstack([y_pred,y_pred1])
@@ -309,4 +309,5 @@ if __name__ == '__main__':
             net, cols = pickle.load(f)
         plot_training(net, label='specialist_%d' % (index%20))
     else:
-        fit_specialists(specialist_index=index)
+        #fit_specialists(specialist_index=index)
+        predict_specialists()

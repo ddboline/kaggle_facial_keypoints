@@ -155,6 +155,23 @@ SPECIALIST_SETTINGS = [dict(columns=('left_eye_center_x', 'left_eye_center_y',
                                      'right_eyebrow_outer_end_x', 'right_eyebrow_outer_end_y',),
                             flip_indices=((0, 2), (1, 3), (4, 6), (5, 7),),),]
 
+COLUMN_LABELS = ['left_eye_center_x', 'left_eye_center_y', 
+                 'right_eye_center_x', 'right_eye_center_y',
+                 'left_eye_inner_corner_x', 'left_eye_inner_corner_y',
+                 'left_eye_outer_corner_x', 'left_eye_outer_corner_y',
+                 'right_eye_inner_corner_x', 'right_eye_inner_corner_y',
+                 'right_eye_outer_corner_x', 'right_eye_outer_corner_y',
+                 'left_eyebrow_inner_end_x', 'left_eyebrow_inner_end_y',
+                 'left_eyebrow_outer_end_x', 'left_eyebrow_outer_end_y',
+                 'right_eyebrow_inner_end_x', 'right_eyebrow_inner_end_y',
+                 'right_eyebrow_outer_end_x', 'right_eyebrow_outer_end_y',
+                 'nose_tip_x', 'nose_tip_y',
+                 'mouth_left_corner_x', 'mouth_left_corner_y',
+                 'mouth_right_corner_x', 'mouth_right_corner_y',
+                 'mouth_center_top_lip_x', 'mouth_center_top_lip_y',
+                 'mouth_center_bottom_lip_x', 'mouth_center_bottom_lip_y',]
+
+
 def fit_specialists(specialist_index=0):
     print('fitting specialist %d' % specialist_index)
     
@@ -227,6 +244,28 @@ def run_full():
     print('mean_squared_error', mean_squared_error(net.predict(X), y))
     return net
 
+def predict_full(net):
+    X = load2d(test=True)[0]
+    y_pred = net.fit(X)
+    
+    columns = COLUMN_LABELS
+    
+    y_pred2 = y_pred * 48 + 48
+    y_pred2 = y_pred2.clip(0, 96)
+    df = DataFrame(y_pred2, columns=columns)
+    lookup_table = read_csv('IdLookupTable.csv')
+    values = []
+    
+    for index, row in lookup_table.iterrows():
+        values.append((row['RowId'],
+                       df.ix[row.ImageId-1][row.FeatureName],))
+    
+    submission = DataFrame(values, columns=('RowId', 'Location'))
+    dstr = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+    filename = 'submission_%s.csv' % dstr
+    submission.to_csv(filename, index=False)
+
+
 def plot_training(net, label='net'):
     train_loss = np.array([i["train_loss"] for i in net.train_history_])
     valid_loss = np.array([i["valid_loss"] for i in net.train_history_])
@@ -256,5 +295,10 @@ if __name__ == '__main__':
         with open('net.pickle', 'rb') as f:
             net = pickle.load(f)
         plot_training(net, label='full')
+    elif index == 11:
+        net = None
+        with open('net.pickle', 'rb') as f:
+            net = pickle.load(f)
+        predict_full(net)
     else:
         fit_specialists(specialist_index=index)

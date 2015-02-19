@@ -8,6 +8,8 @@ import matplotlib
 matplotlib.use('Agg')
 import pylab as pl
 
+import pandas as pd
+
 from load_fn import load2d
 from lasagne import layers
 from lasagne.updates import nesterov_momentum
@@ -214,7 +216,7 @@ def predict_specialists():
     
     y_pred2 = y_pred * 48 + 48
     y_pred2 = y_pred2.clip(0, 96)
-    df = DataFrame(y_pred2, columns=columns)
+    df = pd.DataFrame(y_pred2, columns=columns)
     lookup_table = read_csv('IdLookupTable.csv')
     values = []
     
@@ -222,7 +224,7 @@ def predict_specialists():
         values.append((row['RowId'],
                        df.ix[row.ImageId-1][row.FeatureName],))
     
-    submission = DataFrame(values, columns=('RowId', 'Location'))
+    submission = pd.DataFrame(values, columns=('RowId', 'Location'))
     dstr = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
     filename = 'submission_%s.csv' % dstr
     submission.to_csv(filename, index=False)
@@ -252,7 +254,7 @@ def predict_full(net):
     
     y_pred2 = y_pred * 48 + 48
     y_pred2 = y_pred2.clip(0, 96)
-    df = DataFrame(y_pred2, columns=columns)
+    df = pd.DataFrame(y_pred2, columns=columns)
     lookup_table = read_csv('IdLookupTable.csv')
     values = []
     
@@ -260,7 +262,7 @@ def predict_full(net):
         values.append((row['RowId'],
                        df.ix[row.ImageId-1][row.FeatureName],))
     
-    submission = DataFrame(values, columns=('RowId', 'Location'))
+    submission = pd.DataFrame(values, columns=('RowId', 'Location'))
     dstr = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
     filename = 'submission_%s.csv' % dstr
     submission.to_csv(filename, index=False)

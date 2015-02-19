@@ -3,6 +3,9 @@
 sudo modprobe nvidia-340
 sudo modprobe nvidia-340-uvm
 
+export PATH="/usr/local/cuda-6.5/bin:$PATH"
+export LD_LIBRARY_PATH="/usr/local/cuda-6.5/lib64"
+
 touch output.out
 touch output.err
 if [ -z $1 ]; then

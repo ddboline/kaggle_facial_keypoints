@@ -8,12 +8,10 @@ import numpy as np
 from load_fn import load2d
 from lasagne import layers
 from lasagne.updates import nesterov_momentum
-from nolearn.lasagne import NeuralNet
+from nolearn.lasagne import NeuralNet, BatchIterator
 
 from collections import OrderedDict
 from sklearn.base import clone
-
-from pylearn2.utils.datasets import BatchIterator
 
 import lasagne.layers.cuda_convnet as cuda_convnet
 

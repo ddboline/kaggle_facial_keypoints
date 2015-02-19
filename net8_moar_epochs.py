@@ -7,9 +7,7 @@ import numpy as np
 from load_fn import load2d
 from lasagne import layers
 from lasagne.updates import nesterov_momentum
-from nolearn.lasagne import NeuralNet
-
-from pylearn2.utils.datasets import BatchIterator
+from nolearn.lasagne import NeuralNet, BatchIterator
 
 import lasagne.layers.cuda_convnet as cuda_convnet
 

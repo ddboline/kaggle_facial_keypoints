@@ -8,28 +8,8 @@ export LD_LIBRARY_PATH="/usr/local/cuda-6.5/lib64"
 
 touch output.out
 touch output.err
-if [ -z $1 ]; then
-    ./test.py >> output.out 2>> output.err
-    ./net1_single_hidden_layer.py >> output.out 2>> output.err
-    ./plot_net1_training_loss.py >> output.out 2>> output.err
-    ./net2_convolutions.py >> output.out 2>> output.err
-    ./plot_net2_training_loss.py >> output.out 2>> output.err
-elif [ $1 = "2" ]; then
-    ./net3_convolutions_flip.py >> output.out 2>> output.err
-    ./plot_net3_training_loss.py >> output.out 2>> output.err
-    ./net4_update_learning_rate.py >> output.out 2>> output.err
-    ./plot_net4_training_loss.py >> output.out 2>> output.err
-elif [ $1 = "3" ]; then
-    ./net5_update_learning_rate_flipped.py >> output.out 2>> output.err
-    ./plot_net5_training_loss.py >> output.out 2>> output.err
-    ./net6_dropout.py >> output.out 2>> output.err
-    ./plot_net6_training_loss.py >> output.out 2>> output.err
-elif [ $1 = "4" ]; then
-    ./net7_bigger.py >> output.out 2>> output.err
-    ./plot_net7_training_loss.py >> output.out 2>> output.err
-    ./net8_moar_epochs.py >> output.out 2>> output.err
-    ./plot_net8_training_loss.py >> output.out 2>> output.err
-fi
+./test.py >> output.out 2>> output.err
+./my_model.py >> output.out 2>> output.err
 
 if [ -z $1 ]; then
     D=`date +%Y%m%d%H%M%S`

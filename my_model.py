@@ -4,6 +4,9 @@ import os
 os.sys.setrecursionlimit(10000)
 
 import numpy as np
+import matplotlib
+matplotlib.use('Agg')
+import pylab as pl
 
 from load_fn import load2d
 from lasagne import layers
@@ -248,5 +251,10 @@ if __name__ == '__main__':
     if index == -1:
         net = run_full()
         plot_training(net)
+    elif index == 10:
+        net = None
+        with open('net.pickle', 'rb') as f:
+            net = pickle.load(f)
+        plot_training(net, label='full')
     else:
         fit_specialists(specialist_index=index)

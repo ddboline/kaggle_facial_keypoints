@@ -19,6 +19,8 @@ from sklearn.metrics import mean_squared_error
 
 from theano import theano
 
+import cPickle as pickle
+
 # use the cuda-convnet implementations of conv and max-pool layer
 Conv2DLayer = layers.cuda_convnet.Conv2DCCLayer
 MaxPool2DLayer = layers.cuda_convnet.MaxPool2DCCLayer
@@ -216,7 +218,6 @@ def run_full():
 
     # Training for 1000 epochs will take a while.  We'll pickle the
     # trained model so that we can load it back later:
-    import cPickle as pickle
     with open('net.pickle', 'wb') as f:
         pickle.dump(net, f, -1)
 

@@ -11,6 +11,8 @@ from nolearn.lasagne import NeuralNet, BatchIterator
 
 import lasagne.layers.cuda_convnet as cuda_convnet
 
+from theano import theano
+
 # use the cuda-convnet implementations of conv and max-pool layer
 Conv2DLayer = layers.cuda_convnet.Conv2DCCLayer
 MaxPool2DLayer = layers.cuda_convnet.MaxPool2DCCLayer

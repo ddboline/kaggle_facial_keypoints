@@ -210,7 +210,7 @@ def run_full():
     with open('net.pickle', 'wb') as f:
         pickle.dump(net, f, -1)
 
-    print 'mean_squared_error', mean_squared_error(net.predict(X), y)
+    print('mean_squared_error', mean_squared_error(net.predict(X), y))
     return net
 
 def plot_training(net, label='net'):

@@ -8,6 +8,7 @@ export LD_LIBRARY_PATH="/usr/local/cuda-6.5/lib64"
 
 rm *.pickle *.png
 
+scp ddboline@ddbolineathome.mooo.com:~/setup_files/build/kaggle_facial_keypoints/net.pickle .
 touch output.out
 touch output.err
 ./test.py >> output.out 2>> output.err

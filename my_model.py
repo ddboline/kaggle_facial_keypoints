@@ -210,8 +210,8 @@ def predict_specialists():
     
     columns = ()
     for idx in range(len(SPECIALIST_SETTINGS)):
-       with open('/mnt/data/net_specialist_%d.pickle' % specialist_index, 'rb') as f:
-           model, cols = pickle.load(specialist_index)
+       with open('/mnt/data/net_specialist_%d.pickle' % idx, 'rb') as f:
+           model, cols = pickle.load(f)
            y_pred1 = model.predict(X)
            y_pred = np.hstack([y_pred,y_pred1])
            columns += cols

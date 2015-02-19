@@ -246,7 +246,7 @@ def run_full():
 
 def predict_full(net):
     X = load2d(test=True)[0]
-    y_pred = net.fit(X)
+    y_pred = net.predict(X)
     
     columns = COLUMN_LABELS
     

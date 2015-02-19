@@ -13,13 +13,13 @@ from nolearn.lasagne import NeuralNet
 
 import cPickle as pickle
 
-with open('net3.pickle', 'rb') as f:
-    net3 = pickle.load(f)
+with open('net5.pickle', 'rb') as f:
+    net5 = pickle.load(f)
 
-train_loss3 = np.array([i["train_loss"] for i in net3.train_history_])
-valid_loss3 = np.array([i["valid_loss"] for i in net3.train_history_])
-pl.plot(train_loss3, linewidth=3, label="net3 train")
-pl.plot(valid_loss3, linewidth=3, label="net3 valid")
+train_loss5 = np.array([i["train_loss"] for i in net5.train_history_])
+valid_loss5 = np.array([i["valid_loss"] for i in net5.train_history_])
+pl.plot(train_loss5, linewidth=3, label="net5 train")
+pl.plot(valid_loss5, linewidth=3, label="net5 valid")
 
 pl.grid()
 pl.legend()
@@ -27,4 +27,4 @@ pl.xlabel("epoch")
 pl.ylabel("loss")
 pl.ylim(1e-3, 1e-2)
 pl.yscale("log")
-pl.savefig('training_loss_net3.png')
+pl.savefig('training_loss_net5.png')

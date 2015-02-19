@@ -13,13 +13,13 @@ from nolearn.lasagne import NeuralNet
 
 import cPickle as pickle
 
-with open('net3.pickle', 'rb') as f:
-    net3 = pickle.load(f)
+with open('net7.pickle', 'rb') as f:
+    net7 = pickle.load(f)
 
-train_loss3 = np.array([i["train_loss"] for i in net3.train_history_])
-valid_loss3 = np.array([i["valid_loss"] for i in net3.train_history_])
-pl.plot(train_loss3, linewidth=3, label="net3 train")
-pl.plot(valid_loss3, linewidth=3, label="net3 valid")
+train_loss7 = np.array([i["train_loss"] for i in net7.train_history_])
+valid_loss7 = np.array([i["valid_loss"] for i in net7.train_history_])
+pl.plot(train_loss7, linewidth=3, label="net7 train")
+pl.plot(valid_loss7, linewidth=3, label="net7 valid")
 
 pl.grid()
 pl.legend()

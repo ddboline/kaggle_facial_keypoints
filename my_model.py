@@ -147,6 +147,8 @@ SPECIALIST_SETTINGS = [dict(columns=('left_eye_center_x', 'left_eye_center_y',
                             flip_indices=((0, 2), (1, 3), (4, 6), (5, 7),),),]
 
 def fit_specialists(specialist_index=0):
+    print('fitting specialist %d' % specialist_index)
+    
     setting = SPECIALIST_SETTINGS[specialist_index]
     
     cols = setting['columns']
@@ -201,6 +203,8 @@ def predict_specialists():
 
 
 def run_full():
+    print('fitting full %d' % specialist_index)
+    
     net = get_neural_network()
     
     X, y = load2d()  # load 2-d data

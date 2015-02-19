@@ -10,6 +10,8 @@ import pylab as pl
 
 import pandas as pd
 
+import datetime
+
 from load_fn import load2d
 from lasagne import layers
 from lasagne.updates import nesterov_momentum

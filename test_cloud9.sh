@@ -31,5 +31,5 @@ else
 fi
 ssh ddboline@ddbolineathome.mooo.com "mkdir -p ~/setup_files/build/kaggle_facial_keypoints/output_${D}"
 scp output.out *.png *.pickle ddboline@ddbolineathome.mooo.com:~/setup_files/build/kaggle_facial_keypoints/output_${D}
-ssh ddboline@ddbolineathome.mooo.com "~/bin/send_to_gtalk ${D}_DONE"
+ssh ddboline@ddbolineathome.mooo.com "~/bin/send_to_gtalk DONE_${D}"
 sudo shutdown

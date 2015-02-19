@@ -217,7 +217,7 @@ def predict_specialists():
     y_pred2 = y_pred * 48 + 48
     y_pred2 = y_pred2.clip(0, 96)
     df = pd.DataFrame(y_pred2, columns=columns)
-    lookup_table = read_csv('IdLookupTable.csv')
+    lookup_table = pd.read_csv('IdLookupTable.csv')
     values = []
     
     for index, row in lookup_table.iterrows():
@@ -255,7 +255,7 @@ def predict_full(net):
     y_pred2 = y_pred * 48 + 48
     y_pred2 = y_pred2.clip(0, 96)
     df = pd.DataFrame(y_pred2, columns=columns)
-    lookup_table = read_csv('IdLookupTable.csv')
+    lookup_table = pd.read_csv('IdLookupTable.csv')
     values = []
     
     for index, row in lookup_table.iterrows():

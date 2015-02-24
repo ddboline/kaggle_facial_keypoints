@@ -32,7 +32,7 @@ net1 = NeuralNet(
 
 X, y = load()
 print X.shape, y.shape
-
+print X.dtype, y.dtype
 net1.fit(X, y)
 
 import cPickle as pickle

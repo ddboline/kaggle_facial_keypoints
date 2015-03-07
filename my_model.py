@@ -20,17 +20,22 @@ from nolearn.lasagne import NeuralNet, BatchIterator
 from collections import OrderedDict
 from sklearn.base import clone
 
-import lasagne.layers.cuda_convnet as cuda_convnet
-
 from sklearn.metrics import mean_squared_error
 
 from theano import theano
 
 import cPickle as pickle
 
-# use the cuda-convnet implementations of conv and max-pool layer
-Conv2DLayer = layers.cuda_convnet.Conv2DCCLayer
-MaxPool2DLayer = layers.cuda_convnet.MaxPool2DCCLayer
+try:
+    import lasagne.layers.cuda_convnet as cuda_convnet
+
+    # use the cuda-convnet implementations of conv and max-pool layer
+    Conv2DLayer = layers.cuda_convnet.Conv2DCCLayer
+    MaxPool2DLayer = layers.cuda_convnet.MaxPool2DCCLayer
+except ImportError:
+    from lasagne.layers import Conv2DLayer, MaxPool2DLayer
+    
+
 
 class EarlyStopping(object):
     def __init__(self, patience=100):

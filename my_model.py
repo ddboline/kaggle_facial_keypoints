@@ -34,7 +34,7 @@ try:
     MaxPool2DLayer = layers.cuda_convnet.MaxPool2DCCLayer
 except ImportError:
     from lasagne.layers import Conv2DLayer, MaxPool2DLayer
-    
+
 
 
 class EarlyStopping(object):
@@ -43,7 +43,7 @@ class EarlyStopping(object):
         self.best_valid = np.inf
         self.best_valid_epoch = 0
         self.best_weights = None
-    
+
     def __call__(self, nn, train_history):
         current_valid = train_history[-1]['valid_loss']
         current_epoch = train_history[-1]['epoch']
@@ -164,7 +164,7 @@ SPECIALIST_SETTINGS = [dict(columns=('left_eye_center_x', 'left_eye_center_y',
                                      'right_eyebrow_outer_end_x', 'right_eyebrow_outer_end_y',),
                             flip_indices=((0, 2), (1, 3), (4, 6), (5, 7),),),]
 
-COLUMN_LABELS = ['left_eye_center_x', 'left_eye_center_y', 
+COLUMN_LABELS = ['left_eye_center_x', 'left_eye_center_y',
                  'right_eye_center_x', 'right_eye_center_y',
                  'left_eye_inner_corner_x', 'left_eye_inner_corner_y',
                  'left_eye_outer_corner_x', 'left_eye_outer_corner_y',
@@ -183,9 +183,9 @@ COLUMN_LABELS = ['left_eye_center_x', 'left_eye_center_y',
 
 def fit_specialists(specialist_index=0):
     print('fitting specialist %d' % specialist_index)
-    
+
     setting = SPECIALIST_SETTINGS[specialist_index]
-    
+
     cols = setting['columns']
     X, y = load2d(cols=cols)
 
@@ -202,9 +202,9 @@ def fit_specialists(specialist_index=0):
     print("Training model for columns {} for {} epochs".format(
         cols, model.max_epochs))
     model.fit(X, y)
-    
+
     with open('net_specialist_%d.pickle' % specialist_index, 'wb') as f:
-        pickle.dump((model, cols) , f, -1)
+        pickle.dump((model, cols), f, -1)
 
     return model
 
@@ -212,25 +212,25 @@ def fit_specialists(specialist_index=0):
 def predict_specialists():
     X = load2d(test=True)[0]
     y_pred = np.empty((X.shape[0], 0))
-    
+
     columns = ()
     for idx in range(len(SPECIALIST_SETTINGS)):
-       with open('/mnt/data/net_specialist_%d.pickle' % idx, 'rb') as f:
-           model, cols = pickle.load(f)
-           y_pred1 = model.predict(X)
-           y_pred = np.hstack([y_pred,y_pred1])
-           columns += cols
-    
+        with open('/mnt/data/net_specialist_%d.pickle' % idx, 'rb') as f:
+            model, cols = pickle.load(f)
+            y_pred1 = model.predict(X)
+            y_pred = np.hstack([y_pred,y_pred1])
+            columns += cols
+
     y_pred2 = y_pred * 48 + 48
     y_pred2 = y_pred2.clip(0, 96)
     df = pd.DataFrame(y_pred2, columns=columns)
     lookup_table = pd.read_csv('IdLookupTable.csv')
     values = []
-    
+
     for index, row in lookup_table.iterrows():
         values.append((row['RowId'],
                        df.ix[row.ImageId-1][row.FeatureName],))
-    
+
     submission = pd.DataFrame(values, columns=('RowId', 'Location'))
     dstr = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
     filename = 'submission_%s.csv' % dstr
@@ -239,9 +239,9 @@ def predict_specialists():
 
 def run_full():
     print('fitting full')
-    
+
     net = get_neural_network()
-    
+
     X, y = load2d()  # load 2-d data
     net.fit(X, y)
 
@@ -256,19 +256,19 @@ def run_full():
 def predict_full(net):
     X = load2d(test=True)[0]
     y_pred = net.predict(X)
-    
+
     columns = COLUMN_LABELS
-    
+
     y_pred2 = y_pred * 48 + 48
     y_pred2 = y_pred2.clip(0, 96)
     df = pd.DataFrame(y_pred2, columns=columns)
     lookup_table = pd.read_csv('IdLookupTable.csv')
     values = []
-    
+
     for index, row in lookup_table.iterrows():
         values.append((row['RowId'],
                        df.ix[row.ImageId-1][row.FeatureName],))
-    
+
     submission = pd.DataFrame(values, columns=('RowId', 'Location'))
     dstr = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
     filename = 'submission_%s.csv' % dstr
@@ -317,4 +317,3 @@ if __name__ == '__main__':
         predict_specialists()
     else:
         fit_specialists(specialist_index=index)
-        

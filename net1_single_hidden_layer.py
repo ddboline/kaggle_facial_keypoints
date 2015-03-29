@@ -11,7 +11,8 @@ from lasagne.updates import nesterov_momentum
 from nolearn.lasagne import NeuralNet
 
 net1 = NeuralNet(
-    layers=[ # three layers: one hidden layer
+    # three layers: one hidden layer
+    layers=[
         ('input', layers.InputLayer),
         ('hidden', layers.DenseLayer),
         ('output', layers.DenseLayer),],
